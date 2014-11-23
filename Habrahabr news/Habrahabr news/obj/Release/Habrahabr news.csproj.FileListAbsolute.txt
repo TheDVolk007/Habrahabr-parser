@@ -1,0 +1,15 @@
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\bin\Release\Habrahabr news.exe.config
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\bin\Release\Habrahabr news.exe
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\bin\Release\HtmlAgilityPack.dll
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\bin\Release\HtmlAgilityPack.pdb
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\bin\Release\HtmlAgilityPack.xml
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr news.csprojResolveAssemblyReference.cache
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr_news.Favorites.resources
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr_news.Form1.resources
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr_news.Name.resources
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr_news.Properties.Resources.resources
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr_news.Settings.resources
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr news.csproj.GenerateResource.Cache
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr news.pdb
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\bin\Release\Habrahabr news.pdb
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Release\Habrahabr news.exe

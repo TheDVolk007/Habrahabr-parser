@@ -1,0 +1,18 @@
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\bin\Debug\Habrahabr news.exe.config
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\bin\Debug\Habrahabr news.exe
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\bin\Debug\Habrahabr news.pdb
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\bin\Debug\HtmlAgilityPack.dll
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\bin\Debug\HtmlAgilityPack.xml
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr news.csprojResolveAssemblyReference.cache
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr_news.Favorites.resources
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr_news.Form1.resources
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr_news.Name.resources
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr_news.Properties.Resources.resources
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr_news.Settings.resources
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr news.csproj.GenerateResource.Cache
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr news.exe
+C:\Users\--\Desktop\Habrahabr news\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr news.pdb
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\bin\Debug\Habrahabr news.exe.config
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr news.exe
+C:\Users\--\Documents\GitHub\Habrahabr-parser\Habrahabr news\Habrahabr news\obj\Debug\Habrahabr news.pdb
