@@ -1,35 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Habrahabr_news.Properties;
 using HtmlAgilityPack;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+
 
 namespace Habrahabr_news
 {
-    class Favorite_Parser
+    class FavoriteParser
     {
-        List<LinkLabel> favoritesList;
-        List<LinkLabel> sortedFavoritesList;
-        List<LinkLabel> tags;
-        Favorites form;
+        readonly List<LinkLabel> favoritesList;
+        readonly List<LinkLabel> tags;
+        readonly Favorites form;
         int y1 = 10;
-        int y2 = 10;
+
         public List<LinkLabel> Tags
         {
             get { return tags; }
         }
-        public Favorite_Parser(Favorites form)
+        public FavoriteParser(Favorites form)
         {
             this.form = form;
             favoritesList = new List<LinkLabel>();
             tags = new List<LinkLabel>();
-            sortedFavoritesList = new List<LinkLabel>();
+            new List<LinkLabel>();
         }
 
         public async void OnLoad(string name)
@@ -55,21 +57,19 @@ namespace Habrahabr_news
             WebClient client = new WebClient();
             client.Encoding = UTF8Encoding.UTF8;
 
-            HtmlAgilityPack.HtmlNodeCollection h1 = null;
-            HtmlAgilityPack.HtmlNodeCollection divTags = null;
-            int count = 0;
-            HtmlAgilityPack.HtmlDocument doc;
+            HtmlNodeCollection h1;
+            HtmlDocument doc;
             do
             {
                 try
                 {
-                    doc = new HtmlAgilityPack.HtmlDocument();
+                    doc = new HtmlDocument();
                     doc.LoadHtml(client.DownloadString(path));
                     var check = doc.DocumentNode.SelectSingleNode("//h1[@class='title']");
                     if (check == null)
                         throw new NotAvailableFavoritesException("У данного пользователя ничего нет в \"Избранном\".");
                     h1 = doc.DocumentNode.SelectNodes("//h1[@class='title']");
-                    divTags = doc.DocumentNode.SelectNodes("//div[@class='hubs']");
+                    doc.DocumentNode.SelectNodes("//div[@class='hubs']");
 
                 }
                 catch (Exception e)
@@ -78,7 +78,6 @@ namespace Habrahabr_news
                     //form.Close();
                     return;
                 }
-                count++;
             } while (h1 == null);
             //System.Diagnostics.Debug.WriteLine(count);
             LinkLabel label;
@@ -91,7 +90,7 @@ namespace Habrahabr_news
                 label.Width = 300;
                 label.Height = 30;
                 string text = item.ChildNodes.Where(w => w.Name == "a").First().InnerText.Trim();
-                int sepPos = text.IndexOf(" ");
+                int sepPos = text.IndexOf(" ", StringComparison.Ordinal);
                 label.Text = text + "\n";
                 string link = item.ChildNodes.Where(w => w.Name == "a").First().Attributes["href"].Value;
                 label.Links.Add(0, sepPos, link);
@@ -126,25 +125,24 @@ namespace Habrahabr_news
             }*/
             if (doc.DocumentNode.SelectSingleNode("//a[@id='next_page' and @class='next']") != null)
             {
-                string nextPagePath;
-                nextPagePath = "http://habrahabr.ru" + doc.DocumentNode.SelectSingleNode("//a[@id='next_page' and @class='next']").Attributes["href"].Value;
+                string nextPagePath = "http://habrahabr.ru" + doc.DocumentNode.SelectSingleNode("//a[@id='next_page' and @class='next']").Attributes["href"].Value;
                 GetFavoritesContent(nextPagePath);
             }
+
             //System.Diagnostics.Debug.WriteLine(favoritesList.Count);
         }
         public List<LinkLabel> GetSortedByTagsFavoritesContent(string path)
         {
             WebClient client = new WebClient();
             client.Encoding = UTF8Encoding.UTF8;
-            HtmlAgilityPack.HtmlNodeCollection favoriteArticles = null;
-            
-            int count = 0;
-            HtmlAgilityPack.HtmlDocument doc;
+            HtmlNodeCollection favoriteArticles;
+
+            HtmlDocument doc;
             do
             {
                 try
                 {
-                    doc = new HtmlAgilityPack.HtmlDocument();
+                    doc = new HtmlDocument();
                     doc.LoadHtml(client.DownloadString(path));
                     var check = doc.DocumentNode.SelectSingleNode("//div[@class='user_favorites']");
                     if (check == null)
@@ -158,12 +156,12 @@ namespace Habrahabr_news
                     //form.Close();
                     return null;
                 }
-                count++;
+                
             } while (favoriteArticles == null);
             //System.Diagnostics.Debug.WriteLine(count);
             foreach (var item in favoriteArticles)
             {
-                System.Diagnostics.Debug.WriteLine(item.ChildNodes.Where(w => w.Name == "h1").First().ChildNodes.Where(b => b.Name == "a").First().InnerText.Trim());
+                Debug.WriteLine(item.ChildNodes.Where(w => w.Name == "h1").First().ChildNodes.Where(b => b.Name == "a").First().InnerText.Trim());
                 
                 //подобный выбор вложенных нодов работает. можно параллельно создавать листы или словари
             }
@@ -178,10 +176,10 @@ namespace Habrahabr_news
                 y1 += 30;
                 label.Width = 300;
                 label.Height = 30;
-                string text = item.ChildNodes.Where(w => w.Name == "h1").First().ChildNodes.Where(b => b.Name == "a").First().InnerText.Trim();
-                int sepPos = text.IndexOf(" ");
+                string text = item.ChildNodes.Where(w => w.Name == "h1").First().ChildNodes.First(b => b.Name == "a").InnerText.Trim();
+                int sepPos = text.IndexOf(" ", StringComparison.Ordinal);
                 label.Text = text + "\n";
-                string link = item.ChildNodes.Where(w => w.Name == "h1").First().ChildNodes.Where(b => b.Name == "a").First().Attributes["href"].Value;
+                string link = item.ChildNodes.Where(w => w.Name == "h1").First().ChildNodes.First(b => b.Name == "a").Attributes["href"].Value;
                 label.Links.Add(0, sepPos, link);
                 label.LinkClicked += form.label_LinkClicked;
 
@@ -191,9 +189,9 @@ namespace Habrahabr_news
                 foreach (var innerItem in item.ChildNodes.Where(w => w.Name == "div[@class='hubs']"))
                 {
                     
-                    string text2 = item.ChildNodes.Where(b => b.Name == "a").First().InnerText.Trim();
+                    string text2 = item.ChildNodes.First(b => b.Name == "a").InnerText.Trim();
                     
-                    string link2 = item.ChildNodes.Where(b => b.Name == "a").First().Attributes["href"].Value;
+                    string link2 = item.ChildNodes.First(b => b.Name == "a").Attributes["href"].Value;
                     tag = new LinkLabel();
                     tag.Text = text2;
                     tag.Links.Add(0, 1, link2);
@@ -240,7 +238,7 @@ namespace Habrahabr_news
                 System.Diagnostics.Debug.WriteLine("отрисован элемент");
             }*/
 
-            form.groupBox1.Text = "Избранные статьи пользователя " + name.ToUpper();
+            form.groupBox1.Text = Resources.Favorite_Parser_PrintContent_Избранные_статьи_пользователя_ + name.ToUpper();
             form.groupBox1.Controls.Add(pnl);
             y1 = 10;
         }
@@ -252,8 +250,8 @@ namespace Habrahabr_news
             public NotAvailableFavoritesException(string message) : base(message) { }
             public NotAvailableFavoritesException(string message, Exception inner) : base(message, inner) { }
             protected NotAvailableFavoritesException(
-              System.Runtime.Serialization.SerializationInfo info,
-              System.Runtime.Serialization.StreamingContext context)
+              SerializationInfo info,
+              StreamingContext context)
                 : base(info, context) { }
         }
     }

@@ -1,39 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Habrahabr_news.Properties;
 using HtmlAgilityPack;
-using System.Xml.Serialization;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+
 
 namespace Habrahabr_news
 {
     [Serializable]
-    public class Main_Parser
+    public class MainParser
     {
         int time;
         List<LinkLabel> newsList;
         List<LinkLabel> updateTempList;
-        WebClient client;
-        Form1 form;
+        readonly WebClient client;
+        readonly Form1 form;
         ProgressBar pb = new ProgressBar();
         public int Time
         {
             get { return time; }
             set { time = value; }
         }
-        public Main_Parser(Form1 form)
+        public MainParser(Form1 form)
         {
             client = new WebClient();
             time = 1000 * 60 * 5;
             this.form = form;
             newsList = new List<LinkLabel>();
-            
+
             client = new WebClient();
             client.Encoding = UTF8Encoding.UTF8;
 
@@ -43,7 +44,7 @@ namespace Habrahabr_news
             pb.Dock = DockStyle.Bottom;
             
         }
-        public Main_Parser()
+        public MainParser()
         {
 
         }
@@ -82,7 +83,7 @@ namespace Habrahabr_news
 
                 newsList = updateTempList;
                 PrintContent();
-                if(somethingNew==true)
+                if(somethingNew)
                     GetUserAttention();
             }
             else
@@ -96,18 +97,18 @@ namespace Habrahabr_news
         {
             return Task.Run(() =>
                 {
-                    HtmlAgilityPack.HtmlNodeCollection h1 = null;
+                    HtmlNodeCollection h1;
                     int count = 0;
                     do
                     {
-                        HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                        HtmlDocument doc = new HtmlDocument();
                         doc.LoadHtml(client.DownloadString("http://habrahabr.ru/posts/top/daily/"));
                         h1 = doc.DocumentNode.SelectNodes("//h1[@class='title']");
                         count++;
                         //System.Threading.Thread.Sleep(5000);
-                        System.Diagnostics.Debug.WriteLine("Попытка обработать страницу...");
+                        Debug.WriteLine("Попытка обработать страницу...");
                     } while (h1 == null);
-                    System.Diagnostics.Debug.WriteLine(count);
+                    Debug.WriteLine(count);
                     /*Пришлось использовать цикл do..while, т.к. по пока неустановленным причинам
                       часто загружается поврежденная страница, которая не поддается обработке*/
                     LinkLabel label;
@@ -122,7 +123,6 @@ namespace Habrahabr_news
                         label.Width = 300;
                         
                         string text = item.ChildNodes.Where(w => w.Name == "a").First().InnerText.Trim();
-                        int sepPos = text.IndexOf(" ");
                         label.Text = text + "\n";
                         //попытка уместить длинный текст в лэйбле
                         if (label.Text.Length >= "Дайджест интересных материалов из мира веб-разработки и IT за последнюю неделю №131 (20 — 26".Length)
@@ -150,8 +150,8 @@ namespace Habrahabr_news
         }
         private void GetUserAttention()
         {
-            form.NotifyIcon1.BalloonTipText = "Появились новые статьи!";
-            form.NotifyIcon1.BalloonTipTitle = "Habrahabr News";
+            form.NotifyIcon1.BalloonTipText = Resources.Main_Parser_GetUserAttention_Появились_новые_статьи_;
+            form.NotifyIcon1.BalloonTipTitle = Resources.Main_Parser_GetUserAttention_Habrahabr_News;
             form.NotifyIcon1.ShowBalloonTip(3000);
         }
         private void PrintContent()

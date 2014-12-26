@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using HtmlAgilityPack;
+using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml.Serialization;
+using Habrahabr_news.Properties;
+
 
 namespace Habrahabr_news
 {
     public partial class Form1 : Form
     {
+        readonly MainParser parser;
 
-        Main_Parser parser;
-        List<LinkLabel> newsList;
         public Form1()
         {
             InitializeComponent();
-            newsList = new List<LinkLabel>();
-            parser = new Main_Parser(this);
+            // ReSharper disable once ObjectCreationAsStatement
+            new List<LinkLabel>();
+            parser = new MainParser(this);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -38,20 +33,22 @@ namespace Habrahabr_news
             string target = e.Link.LinkData as string;
             if (null != target)
             {
-                System.Diagnostics.Process.Start(target);
+                Process.Start(target);
             }
             LinkLabel label = sender as LinkLabel;
-            label.LinkVisited = true;
-            
+            if(label != null)
+            {
+                label.LinkVisited = true;
+            }
         }
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("DVolk inc., 2014\ndvolk007@mail.ru");
+            MessageBox.Show(Resources.Form1_AboutToolStripMenuItem_Click_);
         }
         private void UpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings setForm = new Settings();
-            setForm.Updated += new Settings.UpdateHandler(Settings_ButtonClicked);
+            setForm.Updated += Settings_ButtonClicked;
             setForm.Show();
         }
         private void Settings_ButtonClicked(object sender, UpdateEventArgs e)
@@ -69,10 +66,10 @@ namespace Habrahabr_news
             if (WindowState == FormWindowState.Minimized)
             {
                 
-                this.ShowInTaskbar = false;
+                ShowInTaskbar = false;
                 notifyIcon1.Visible = true;
-                notifyIcon1.BalloonTipText = "Приложение работает в фоновом режиме!";
-                notifyIcon1.BalloonTipTitle = "Habrahabr News";
+                notifyIcon1.BalloonTipText = Resources.Form1_Form1_Resize_Приложение_работает_в_фоновом_режиме_;
+                notifyIcon1.BalloonTipTitle = Resources.Form1_Form1_Resize_Habrahabr_News;
                 notifyIcon1.ShowBalloonTip(3000);
                 
             }
@@ -80,8 +77,8 @@ namespace Habrahabr_news
         }
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            this.WindowState = FormWindowState.Normal;
-            this.ShowInTaskbar = true;
+            WindowState = FormWindowState.Normal;
+            ShowInTaskbar = true;
             notifyIcon1.Visible = false;
         }
 

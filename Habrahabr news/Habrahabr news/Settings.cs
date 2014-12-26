@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Habrahabr_news
 {
@@ -28,8 +22,11 @@ namespace Habrahabr_news
             {
                 time = int.Parse(textBox1.Text)*1000*60;
                 UpdateEventArgs args = new UpdateEventArgs(time);
-                Updated(this, args);
-                this.Dispose();
+                if(Updated != null)
+                {
+                    Updated(this, args);
+                }
+                Dispose();
             }
             catch (Exception ex)
             {
@@ -38,7 +35,7 @@ namespace Habrahabr_news
             
         }
     }
-    public class UpdateEventArgs: System.EventArgs
+    public class UpdateEventArgs: EventArgs
     {
         private int time;
 

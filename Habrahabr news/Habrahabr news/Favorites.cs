@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
+
 
 namespace Habrahabr_news
 {
     public partial class Favorites : Form
     {
-        Favorite_Parser fParser;
+        FavoriteParser fParser;
         
         public Favorites()
         {
             InitializeComponent();
-            fParser = new Favorite_Parser(this);
+            fParser = new FavoriteParser(this);
             
         }
         public void label_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -25,7 +20,7 @@ namespace Habrahabr_news
             string target = e.Link.LinkData as string;
             if (null != target)
             {
-                System.Diagnostics.Process.Start(target);
+                Process.Start(target);
             }
 
         }

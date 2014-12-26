@@ -114,4 +114,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Main_Parser_GetUserAttention_Появились_новые_статьи_" xml:space="preserve">
+    <value>Появились новые статьи!</value>
+  </data>
+  <data name="Main_Parser_GetUserAttention_Habrahabr_News" xml:space="preserve">
+    <value>Habrahabr News</value>
+  </data>
+  <data name="Form1_AboutToolStripMenuItem_Click_" xml:space="preserve">
+    <value>DVolk inc., 2014
+dvolk007@mail.ru</value>
+  </data>
+  <data name="Form1_Form1_Resize_Приложение_работает_в_фоновом_режиме_" xml:space="preserve">
+    <value>Приложение работает в фоновом режиме!</value>
+  </data>
+  <data name="Form1_Form1_Resize_Habrahabr_News" xml:space="preserve">
+    <value>Habrahabr News</value>
+  </data>
+  <data name="Favorite_Parser_PrintContent_Избранные_статьи_пользователя_" xml:space="preserve">
+    <value>Избранные статьи пользователя </value>
+  </data>
 </root>
